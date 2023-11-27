@@ -12,11 +12,11 @@
 
 #include "../includes/cub3d.h"
 
-void	throw_error(t_game *game, char **msg)
+void	throw_error(t_game *game, char *message)
 {
-	// if (game)
-	//free all
+	if (game)
+		free_game(game);
 	ft_putstr_fd("Error\n", 2);
-	ft_putstr_fd(msg, 2);
+	ft_putstr_fd(message, 2);
 	exit(EXIT_FAILURE);
 }

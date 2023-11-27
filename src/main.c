@@ -43,6 +43,8 @@ void	init_map_data(t_game *game, char *path)
 	char	**file_content;
 
 	file_content = read_map(game, path);
+	//init map vars
+	
 	
 }
 
@@ -59,5 +61,5 @@ int	main(int argc, char **argv)
 		throw_error(game, "Wrong extension\n");
 	if (!init_game_vars(game))
 		throw_error(game, MEM_ALLOCATION);
-
+		
 }
