@@ -6,11 +6,22 @@
 /*   By: ikhristi <ikhristi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 15:24:16 by ikhristi          #+#    #+#             */
-/*   Updated: 2023/11/19 19:25:55 by ikhristi         ###   ########.fr       */
+/*   Updated: 2023/11/27 17:57:04 by ikhristi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+
+int	check_extention(char *path)
+{
+	int	len;
+
+	len = ft_strlen(path);
+	if (len < 4)
+		return (0);
+	path += len - 4;
+	return (strnstr(path, ".cub", 5));
+}
 
 int	init_game_vars(t_game *game)
 {
@@ -43,9 +54,10 @@ void	init_map_data(t_game *game, char *path)
 	char	**file_content;
 
 	file_content = read_map(game, path);
-	//init map vars
-	
-	
+	init_map_vars(game, file_content);
+	init_map(game, file_content);
+
+
 }
 
 int	main(int argc, char **argv)
@@ -61,5 +73,5 @@ int	main(int argc, char **argv)
 		throw_error(game, "Wrong extension\n");
 	if (!init_game_vars(game))
 		throw_error(game, MEM_ALLOCATION);
-		
+
 }

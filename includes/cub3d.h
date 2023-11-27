@@ -6,7 +6,7 @@
 /*   By: ikhristi <ikhristi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 15:22:28 by ikhristi          #+#    #+#             */
-/*   Updated: 2023/11/19 19:24:52 by ikhristi         ###   ########.fr       */
+/*   Updated: 2023/11/27 17:43:26 by ikhristi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,9 +137,14 @@ typedef struct s_game
 	int			key_left;
 }	t_game;
 
-void	throw_error(t_game *game, char **msg);
-int		check_extention(char *path);
-char	**read_map(t_game *game, char *map);
+//utils
+int		check_if_nums(char *num);
+int		ft_isspace(int c);
+size_t	matrix_len(char **str);
+char	**matrix_dup(char **str, int size);
+void	matrix_free(char **str);
+//exit
+void	throw_error(t_game *game, char *message);
 
 
 #endif
