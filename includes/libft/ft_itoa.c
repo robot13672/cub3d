@@ -3,77 +3,60 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ikhristi <ikhristi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dsas <dsas@student.42wolfsburg.de>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/03 16:08:36 by ikhristi          #+#    #+#             */
-/*   Updated: 2023/01/10 00:18:00 by ikhristi         ###   ########.fr       */
+/*   Created: 2022/12/27 17:15:52 by dsas              #+#    #+#             */
+/*   Updated: 2023/01/10 11:03:25 by dsas             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_count_chr(long value)
+static size_t	get_len(long nb, int *sign)
 {
-	size_t	size;
+	size_t	len;
 
-	size = 0;
-	if (value == 0)
-		return (1);
-	if (value < 0)
-		value *= -1;
-	while (value > 0)
+	len = 0;
+	*sign = 1;
+	if (nb < 0)
 	{
-		value = value / 10;
-		size++;
+		len++;
+		nb *= -1;
+		*sign = -1;
 	}
-	return (size);
-}
-
-void	ft_fillnumb(char *ptr, int size, long value)
-{
-	ptr[size] = '\0';
-	if (value < 0)
-		value *= -1;
-	if (value == 0)
-		ptr[--size] = 48;
-	while (value > 0)
+	while (nb >= 1)
 	{
-		ptr[--size] = value % 10 + 48;
-		value /= 10;
+		len++;
+		nb /= 10;
 	}
+	return (len);
 }
 
 char	*ft_itoa(int n)
 {
-	size_t	size;
-	char	*ptr;
+	size_t	len;
+	char	*res;
+	long	nb;
 	int		sign;
-	long	value;
 
-	sign = 0;
-	value = n;
-	if (n < 0)
-		sign = -1;
-	size = ft_count_chr(value);
-	if (sign < 0)
-	{
-		ptr = malloc(size + 2);
-		if (!ptr)
-			return (NULL);
-		*ptr = '-';
-		size += 1;
-	}
-	else
-		ptr = malloc(size + 1);
-	if (!ptr)
+	nb = n;
+	len = get_len(nb, &sign);
+	if (nb == 0)
+		return (ft_strdup("0"));
+	res = malloc(len + 1);
+	if (!res)
 		return (NULL);
-	ft_fillnumb(ptr, size, value);
-	return (ptr);
+	if (nb < 0)
+		nb *= -1;
+	res[len] = '\0';
+	while (--len)
+	{
+		res[len] = (nb % 10) + '0';
+		nb /= 10;
+	}
+	if (sign == -1)
+		res[0] = '-';
+	else
+		res[0] = (nb % 10) + '0';
+	return (res);
 }
-
-// int main()
-// {
-// 	int value = -2147483648LL;
-// 	char *ptr = ft_itoa(value);
-// 	printf("%s", ptr);
-// }

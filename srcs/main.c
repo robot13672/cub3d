@@ -3,25 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ikhristi <ikhristi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: novsiann <novsiann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/19 15:24:16 by ikhristi          #+#    #+#             */
-/*   Updated: 2023/11/29 13:08:24 by ikhristi         ###   ########.fr       */
+/*   Created: 2023/11/19 17:30:13 by novsiann          #+#    #+#             */
+/*   Updated: 2023/11/29 14:57:22 by novsiann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
-
-int	check_extention(char *path)
-{
-	int	len;
-
-	len = ft_strlen(path);
-	if (len < 4)
-		return (0);
-	path += len - 4;
-	return (strnstr(path, ".cub", 5));
-}
 
 void	init_facing_direction(t_game *game)
 {
@@ -83,21 +72,29 @@ void	init_map_data(t_game *game, char *path)
 	matrix_free(file_content);
 }
 
-int	main(int argc, char **argv)
+int	main(int argc, char *argv[])
 {
 	t_game	*game;
 
+	(void)argv;
+	game = ft_calloc(sizeof(t_game), 1);
 	game->rays = ft_calloc(sizeof(t_raycast), 1);
 	if (game == NULL)
-		throw_error(game, MEM_ALLOCATION);
+		throw_error(game, "Memory allocation!");
 	if (argc != 2)
 		throw_error(game, ARGS_ERROR);
-	if (!check_extention)
+	if (ft_strlen(ft_strnstr(argv[1], ".cub", ft_strlen(argv[1]))) != 4)
 		throw_error(game, "Wrong extension\n");
 	if (!init_game_vars(game))
-		throw_error(game, MEM_ALLOCATION);
+		throw_error(game, "Memory allocation!");
 	init_map_data(game, argv[1]);
 	init_facing_direction(game);
 	if (!init_textures(game))
-		throw_error(game, MEM_ALLOCATION);
+		throw_error(game, "Memory allocation!");
+	mlx_loop_hook(game->mlx, draw, game);
+	mlx_hook(game->win, KEYPRESS, 1L << 0, &key_press, game);
+	mlx_hook(game->win, KEYRELEASE, 1L << 1, &key_release, game);
+	mlx_hook(game->win, 17, 1L << 17, &close_game, game);
+	mlx_loop(game->mlx);
+	return (0);
 }

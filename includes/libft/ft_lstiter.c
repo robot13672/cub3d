@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstiter.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ikhristi <ikhristi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dsas <dsas@student.42wolfsburg.de>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/12 19:26:29 by ikhristi          #+#    #+#             */
-/*   Updated: 2023/01/12 19:28:26 by ikhristi         ###   ########.fr       */
+/*   Created: 2022/12/28 17:22:46 by dsas              #+#    #+#             */
+/*   Updated: 2023/01/10 11:01:38 by dsas             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_lstiter(t_list *lst, void (*f)(void *))
 {
-	if (!f)
+	if (!lst || !f)
 		return ;
 	while (lst)
 	{

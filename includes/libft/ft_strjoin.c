@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ikhristi <ikhristi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dsas <dsas@student.42wolfsburg.de>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/03 16:06:09 by ikhristi          #+#    #+#             */
-/*   Updated: 2023/01/09 22:12:48 by ikhristi         ###   ########.fr       */
+/*   Created: 2022/07/29 12:14:52 by dsas              #+#    #+#             */
+/*   Updated: 2022/12/27 17:00:44 by dsas             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,22 @@
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
-	char	*ptr;
-	size_t	i;
+	size_t	s1_len;
+	size_t	s2_len;
+	char	*res;
 
-	i = 0;
-	if (ft_strlen(s2) == 0 && ft_strlen(s1) == 0)
-	{
-		ptr = malloc(1);
-		*ptr = 0;
-		return (ptr);
-	}
-	ptr = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
-	if (!ptr)
+	if (!s1 && !s2)
+		return (ft_strdup(""));
+	else if (!s1)
+		return (ft_strdup(s2));
+	else if (!s2)
+		return (ft_strdup(s1));
+	s1_len = ft_strlen(s1);
+	s2_len = ft_strlen(s2);
+	res = (char *) malloc(s1_len + s2_len + 1);
+	if (!res)
 		return (NULL);
-	while (*s1)
-		ptr[i++] = *(s1++);
-	while (*s2)
-		ptr[i++] = *(s2++);
-	ptr[i] = '\0';
-	return (ptr);
+	ft_memmove(res, s1, s1_len);
+	ft_memmove(res + s1_len, s2, s2_len + 1);
+	return (res);
 }

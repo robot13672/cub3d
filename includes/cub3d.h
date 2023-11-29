@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ikhristi <ikhristi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: novsiann <novsiann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/19 15:22:28 by ikhristi          #+#    #+#             */
-/*   Updated: 2023/11/29 10:50:15 by ikhristi         ###   ########.fr       */
+/*   Created: 2023/07/27 15:13:54 by ibellash          #+#    #+#             */
+/*   Updated: 2023/11/23 16:43:28 by novsiann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@
 # define MAP_COMPONENTS_ERROR "Map doesn't have the player starting \
 position, has multiple starting positions or has some invalid characters!\n"
 # define SPRITE_ERROR "Couldn't find a sprite. Does it exist?\n"
-# define MEM_ALLOCATION "Memory allocation!\n"
 
 typedef struct s_image
 {
@@ -137,14 +136,54 @@ typedef struct s_game
 	int			key_left;
 }	t_game;
 
-//utils
-int		check_if_nums(char *num);
-int		ft_isspace(int c);
-size_t	matrix_len(char **str);
-char	**matrix_dup(char **str, int size);
-void	matrix_free(char **str);
-//exit
-void	throw_error(t_game *game, char *message);
+int				close_game(t_game *game);
+int				init_game_vars(t_game *game);
+void			throw_error(t_game *game, char *message);
+char			**read_map(t_game *game, char *map);
+void			init_map_data(t_game *game, char *path);
+size_t			matrix_len(char **str);
+void			matrix_free(char **str);
+char			**matrix_dup(char **str, int size);
+void			free_game(t_game *game);
+void			init_map_vars(t_game *game, char **file_content);
+char			**ft_split_spaces(char *s);
+int				ft_isspace(int c);
+t_image			read_xmp_image(void *mlx, char *file);
+void			my_mlx_pixel_put(t_game *game, int x, int y, uint32_t color);
+unsigned int	ft_get_ticks(void);
+void			init_map(t_game *game, char **file_content);
+int				check_components(t_game *game, char **map, int i);
+int				check_walls(char **map);
+int				check_empty(char **map);
+void			map_check_errors(t_game *game, char **file_content);
+int				check_if_nums(char *num);
+char			**get_map(char **file_content);
+void			fill_with_ones(t_game *game);
+int				is_empty_line(char *line);
+void			init_wall_drawing(t_game *game, int i);
+void			floor_ceiling_drawing(t_game *game);
+void			walls_drawing(t_game *game);
 
+int				create_trgb(int t, int r, int g, int b);
+int				get_t(int trgb);
+int				get_r(int trgb);
+int				get_g(int trgb);
+int				get_b(int trgb);
+
+void			calc_side_dist(t_game *game);
+void			calc_hit(t_game *game);
+void			check_side(t_game *game);
+int				draw(t_game *game);
+int				init_textures(t_game *g);
+void			init_wall_casting(t_game *game, int i);
+int				keys(int keycode, t_game *game);
+int				keys_execute(t_game *game);
+int				key_release(int key, t_game *d);
+int				key_press(int key, t_game *d);
+void			key_up(t_game *game);
+void			key_down(t_game *game);
+void			key_a(t_game *game);
+void			key_d(t_game *game);
+void			rotate(int direction, t_game *d, double rotspeed);
 
 #endif

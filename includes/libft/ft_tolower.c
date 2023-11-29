@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_tolower.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ikhristi <ikhristi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dsas <dsas@student.42wolfsburg.de>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/13 14:42:01 by ikhristi          #+#    #+#             */
-/*   Updated: 2022/12/20 16:01:17 by ikhristi         ###   ########.fr       */
+/*   Created: 2022/12/12 16:52:15 by dsas              #+#    #+#             */
+/*   Updated: 2022/12/12 17:15:41 by dsas             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 int	ft_tolower(int c)
 {
-	if (c >= 65 && c <= 90)
+	if (c >= 'A' && c <= 'Z')
+	{
 		return (c + 32);
+	}
 	return (c);
 }

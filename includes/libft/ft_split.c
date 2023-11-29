@@ -3,82 +3,95 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ikhristi <ikhristi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dsas <dsas@student.42wolfsburg.de>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/07 16:46:52 by ikhristi          #+#    #+#             */
-/*   Updated: 2023/01/11 00:58:02 by ikhristi         ###   ########.fr       */
+/*   Created: 2022/08/01 21:48:32 by dsas              #+#    #+#             */
+/*   Updated: 2022/12/26 15:48:55 by dsas             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	word_count(char const *s, char c)
+static int	split_count(const char *str, char c)
 {
-	size_t	j;
-	int		count;
+	int	i;
+	int	counter;
 
-	j = 0;
-	count = 0;
-	while (*s)
+	counter = 0;
+	i = 0;
+	while (str[i] != '\0')
 	{
-		if (*s != c && count == 0)
-		{
-			j++;
-			count = 1;
-		}
-		else if (*s == c)
-		{
-			count = 0;
-		}
-		s++;
+		while (str[i] != '\0' && str[i] == c)
+			i++;
+		if (str[i] != '\0')
+			counter++;
+		while (str[i] != '\0' && !(str[i] == c))
+			i++;
 	}
-	return (j);
+	return (counter);
 }
 
-char	*word_lenght(char const *s, char del, int *len)
+static char	*add_str(const char *str, char c, int *i)
 {
-	char	*res;
-	int		i;
+	int		str_len;
+	char	*result;
+	int		j;
 
-	i = 0;
-	while (s[i + *len] != del)
+	str_len = 0;
+	j = 0;
+	while (str[*i + str_len] != '\0' && !(str[*i + str_len] == c))
 	{
-		if (s[i + *len] == '\0')
-			break ;
-		i++;
+		str_len++;
 	}
-	res = ft_substr(s, *len, i);
-	*len += i + 1;
-	res[i] = '\0';
-	return (res);
+	result = (char *)malloc(sizeof(char) * (str_len + 1));
+	if (!result)
+		return (NULL);
+	while (str[*i] != '\0' && !(str[*i] == c))
+	{
+		result[j] = str[*i];
+		j++;
+		(*i)++;
+	}
+	result[j] = '\0';
+	return (result);
 }
 
 char	**ft_split(char const *s, char c)
 {
-	int		len;
+	char	**result;
+	int		split_amount;
 	int		i;
-	char	**res;
+	int		string_counter;
 
-	len = 0;
+	string_counter = 0;
 	i = 0;
-	if (!s)
+	split_amount = split_count(s, c);
+	result = (char **)malloc (sizeof(char *) * (split_amount + 1));
+	if (!result)
 		return (NULL);
-	res = (char **)malloc(sizeof(char *) *(word_count(s, c) + 1));
-	if (!res)
-		return (NULL);
-	while (i != word_count(s, c))
+	if (split_amount == 0)
 	{
-		if (s[len] == c)
-			len++;
-		else
-			res[i++] = word_lenght(s, c, &len);
+		result[0] = NULL;
+		return (result);
 	}
-	res[i] = 0;
-	return (res);
+	while (s[i] != '\0')
+	{
+		while (s[i] != '\0' && s[i] == c)
+			i++;
+		if (s[i] != '\0')
+			result[string_counter++] = add_str(s, c, &i);
+	}
+	result[string_counter] = NULL;
+	return (result);
 }
+
+// #include <stdio.h>
 
 // int main()
 // {
-// 	char	**ptr;
-// 	ptr = ft_split("Hello World", ' ');
+// 	char **test;
+// 	test = ft_split("dan,", ",");
+// 	int i = 0;
+// 	while (test[i] != NULL)
+// 		printf("%s\n", test[i++]);
 // }

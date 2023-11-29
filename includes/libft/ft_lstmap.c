@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ikhristi <ikhristi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dsas <dsas@student.42wolfsburg.de>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/12 19:36:54 by ikhristi          #+#    #+#             */
-/*   Updated: 2023/01/12 20:01:07 by ikhristi         ###   ########.fr       */
+/*   Created: 2022/12/28 17:25:19 by dsas              #+#    #+#             */
+/*   Updated: 2023/01/10 10:49:48 by dsas             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,32 +14,27 @@
 
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
-	t_list	*ret;
-	t_list	*new;
+	t_list	*res;
+	t_list	*current_new;
 
-	if (!lst)
+	if (!lst || !f || !del)
 		return (NULL);
-	ret = NULL;
+	res = ft_lstnew(f(lst->content));
+	if (!res)
+		return (NULL);
+	current_new = res;
+	lst = lst->next;
 	while (lst)
 	{
-		new = ft_lstnew((*f)(lst->content));
-		if (!new)
+		current_new->next = ft_lstnew(f(lst->content));
+		current_new = current_new->next;
+		if (!current_new)
 		{
-			del(new);
+			ft_lstclear(&res, del);
+			return (NULL);
 		}
-		ft_lstadd_back(&ret, new);
 		lst = lst->next;
 	}
-	return (ret);
+	current_new->next = NULL;
+	return (res);
 }
-
-// int main()
-// {
-// 	t_list *list;
-// 	t_list *second;
-
-// 	 list = ft_lstnew((void *)"char");
-// 	second = ft_lstnew((void *)"int");
-// 	ft_lstadd_back(&list, second);
-// 	ft_lstmap(list, )
-// }

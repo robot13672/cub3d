@@ -3,34 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ikhristi <ikhristi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dsas <dsas@student.42wolfsburg.de>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/15 14:58:19 by ikhristi          #+#    #+#             */
-/*   Updated: 2023/01/11 14:26:16 by ikhristi         ###   ########.fr       */
+/*   Created: 2022/12/12 19:00:39 by dsas              #+#    #+#             */
+/*   Updated: 2022/12/25 15:47:30 by dsas             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strnstr(const char	*big, const char *little, size_t len)
+char	*ft_strnstr(const char *s, const char *find, size_t slen)
 {
 	size_t	i;
 	size_t	j;
 
 	i = 0;
-	if (*little == '\0' || little == NULL)
-		return ((char *)big);
-	while (big[i] != '\0' && i < len)
+	if (find[0] == '\0')
+		return ((char *) s);
+	while (s[i] != '\0')
 	{
 		j = 0;
-		while (little[j] == big[i + j] && i + j < len)
+		while (s[i + j] == find[j] && (i + j) < slen)
 		{
-			if (little[j + 1] == '\0')
-			{
-				return ((char *)big + i);
-			}
+			if (find[j] == '\0' && s[i + j] == '\0')
+				return ((char *) &s[i]);
 			j++;
 		}
+		if (find[j] == '\0')
+			return ((char *) &s[i]);
 		i++;
 	}
 	return (NULL);

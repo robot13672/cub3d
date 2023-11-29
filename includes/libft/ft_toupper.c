@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_toupper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ikhristi <ikhristi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dsas <dsas@student.42wolfsburg.de>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/13 14:37:05 by ikhristi          #+#    #+#             */
-/*   Updated: 2023/01/04 13:24:53 by ikhristi         ###   ########.fr       */
+/*   Created: 2022/12/12 16:49:46 by dsas              #+#    #+#             */
+/*   Updated: 2022/12/12 16:51:34 by dsas             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 int	ft_toupper(int c)
 {
-	if (c >= 97 && c <= 122)
+	if (c >= 'a' && c <= 'z')
+	{
 		return (c - 32);
+	}
 	return (c);
 }

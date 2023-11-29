@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ikhristi <ikhristi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dsas <dsas@student.42wolfsburg.de>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/14 18:33:30 by ikhristi          #+#    #+#             */
-/*   Updated: 2023/01/10 20:02:29 by ikhristi         ###   ########.fr       */
+/*   Created: 2022/12/12 17:14:24 by dsas              #+#    #+#             */
+/*   Updated: 2022/12/12 17:19:28 by dsas             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,15 @@
 
 char	*ft_strrchr(const char *s, int c)
 {
-	char	*ptr;
+	int	i;
+	int	len;
 
-	ptr = NULL;
-	while (*s != '\0')
+	len = ft_strlen(s);
+	i = -1;
+	while (++i <= len)
 	{
-		if (*s == (unsigned char)c)
-			ptr = (char *)s;
-		s++;
+		if (s[len - i] == (unsigned char) c)
+			return ((char *) &s[len - i]);
 	}
-	if ((unsigned char)c == 0)
-		return ((char *)s);
-	return (ptr);
+	return (NULL);
 }
-
-// int main () {
-//    int len;
-//    const char str[] = "http://www.tutorialspoint.com";
-//    int c = 119;
-//    char *ret;
-
-//    ret = ft_strrchr(str, c);
-
-//    printf("String after |%c| is - |%s|\n", c, ret);
-
-//    return(0);
-// }

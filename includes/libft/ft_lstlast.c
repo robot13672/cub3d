@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstlast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ikhristi <ikhristi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dsas <dsas@student.42wolfsburg.de>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/12 16:42:36 by ikhristi          #+#    #+#             */
-/*   Updated: 2023/01/12 16:44:04 by ikhristi         ###   ########.fr       */
+/*   Created: 2022/12/28 17:10:20 by dsas              #+#    #+#             */
+/*   Updated: 2023/01/10 10:58:49 by dsas             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,14 @@
 
 t_list	*ft_lstlast(t_list *lst)
 {
+	t_list	*last;
+
+	if (!lst)
+		return (NULL);
 	while (lst)
 	{
-		if (!lst->next)
-			break ;
-	lst = lst->next;
+		last = lst;
+		lst = lst->next;
 	}
-	return (lst);
+	return (last);
 }
