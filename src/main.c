@@ -6,7 +6,7 @@
 /*   By: ikhristi <ikhristi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 15:24:16 by ikhristi          #+#    #+#             */
-/*   Updated: 2023/11/27 17:57:04 by ikhristi         ###   ########.fr       */
+/*   Updated: 2023/11/29 13:08:24 by ikhristi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,30 @@ int	check_extention(char *path)
 		return (0);
 	path += len - 4;
 	return (strnstr(path, ".cub", 5));
+}
+
+void	init_facing_direction(t_game *game)
+{
+	if (game->player_direction == 'E')
+	{
+		game->rays->dir_x = -1;
+		game->rays->plane_y = 0.66;
+	}
+	if (game->player_direction == 'N')
+	{
+		game->rays->dir_y = -1;
+		game->rays->plane_x = -0.66;
+	}
+	if (game->player_direction == 'W')
+	{
+		game->rays->dir_x = 1;
+		game->rays->plane_y = -0.66;
+	}
+	if (game->player_direction == 'S')
+	{
+		game->rays->dir_y = 1;
+		game->rays->plane_x = 0.66;
+	}
 }
 
 int	init_game_vars(t_game *game)
@@ -56,8 +80,7 @@ void	init_map_data(t_game *game, char *path)
 	file_content = read_map(game, path);
 	init_map_vars(game, file_content);
 	init_map(game, file_content);
-
-
+	matrix_free(file_content);
 }
 
 int	main(int argc, char **argv)
@@ -73,5 +96,8 @@ int	main(int argc, char **argv)
 		throw_error(game, "Wrong extension\n");
 	if (!init_game_vars(game))
 		throw_error(game, MEM_ALLOCATION);
-
+	init_map_data(game, argv[1]);
+	init_facing_direction(game);
+	if (!init_textures(game))
+		throw_error(game, MEM_ALLOCATION);
 }

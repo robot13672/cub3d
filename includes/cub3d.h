@@ -6,14 +6,14 @@
 /*   By: ikhristi <ikhristi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 15:22:28 by ikhristi          #+#    #+#             */
-/*   Updated: 2023/11/27 17:43:26 by ikhristi         ###   ########.fr       */
+/*   Updated: 2023/11/29 10:50:15 by ikhristi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# include "../libft.h"
+# include "libft/libft.h"
 # include <stdio.h>
 # include <limits.h>
 # include <fcntl.h>

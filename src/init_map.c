@@ -6,7 +6,7 @@
 /*   By: ikhristi <ikhristi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 19:05:56 by ikhristi          #+#    #+#             */
-/*   Updated: 2023/11/27 19:47:57 by ikhristi         ###   ########.fr       */
+/*   Updated: 2023/11/29 13:07:50 by ikhristi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,16 @@ int	add_color_vars(int *color, char *rgb)
 	*color = create_trgb(0, ft_atoi(colors[0]), \
 		ft_atoi(colors[1]), ft_atoi(colors[2]));
 	matrix_free(colors);
+	return (0);
+}
+
+int	add_path_vars(t_game *game, t_image *image, char *path)
+{
+	if ((*image).xpm_ptr != NULL)
+		return (1);
+	*image = read_xmp_image(game->mlx, path);//check
+	if ((*image).xpm_ptr == NULL)
+		return (1);
 	return (0);
 }
 
@@ -79,5 +89,25 @@ void	init_map_vars(t_game *game, char **file)
 		if (count == 6)
 			break ;
 		i++;
+	}
+}
+
+void	init_map(t_game *game, char **file_content)
+{
+	int	i;
+
+	game->map = get_map(file_content);
+	if (!game->map)
+	{
+		matrix_free(file_content);
+		throw_error(game, MAP_EMPTY_ERROR);
+	}
+	map_check_errors(game, file_content);
+	fill_with_ones(game);
+	i = -1;
+	if (!check_components(game, game->map, i))
+	{
+		matrix_free(file_content);
+		throw_error(game, MAP_COMPONENTS_ERROR);
 	}
 }
