@@ -6,7 +6,7 @@
 /*   By: ikhristi <ikhristi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 17:55:37 by ikhristi          #+#    #+#             */
-/*   Updated: 2023/11/27 17:55:45 by ikhristi         ###   ########.fr       */
+/*   Updated: 2023/11/29 20:14:30 by ikhristi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	find_max_len(t_game *game)
 		if ((int)ft_strlen(game->map[i]) > max)
 		{
 			max = (int)ft_strlen(game->map[i]);
-			if (game->map[i][(int)ft_strlen(game->map[i] - 1)] != '\n')
+			if (game->map[i][(int)ft_strlen(game->map[i]) - 1] != '\n')
 				max++;
 		}
 		i++;
